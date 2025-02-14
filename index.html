@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Will you be my Valentine?</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            background-color: #ffcccc;
+            font-family: 'Arial', sans-serif;
+            color: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .heart-background {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 300px;
+            height: 300px;
+            background-color: red;
+            clip-path: polygon(50% 0%, 100% 35%, 85% 100%, 50% 75%, 15% 100%, 0% 35%);
+            z-index: -1;
+        }
+
+        .message {
+            font-size: 40px;
+            font-weight: bold;
+            z-index: 1;
+        }
+
+        .btn {
+            background-color: white;
+            color: red;
+            border: 2px solid white;
+            padding: 15px 30px;
+            margin: 20px;
+            font-size: 20px;
+            cursor: pointer;
+            transition: 0.3s;
+            z-index: 1;
+        }
+
+        .btn:hover {
+            background-color: red;
+            color: white;
+        }
+
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: white;
+            opacity: 0;
+            pointer-events: none;
+            animation: confettiAnimation 2s forwards;
+        }
+
+        @keyframes confettiAnimation {
+            0% {
+                transform: translateY(0) rotate(0);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(800px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="heart-background"></div>
+
+    <div class="message">
+        Will you be my Valentine?
+    </div>
+
+    <button class="btn" id="yesBtn">Yes</button>
+    <button class="btn" id="noBtn">No</button>
+
+    <script>
+        const yesBtn = document.getElementById('yesBtn');
+        const noBtn = document.getElementById('noBtn');
+
+        // Create confetti effect
+        yesBtn.addEventListener('click', function() {
+            for (let i = 0; i < 100; i++) {
+                createConfetti();
+            }
+        });
+
+        // Reload page if "No" is clicked
+        noBtn.addEventListener('click', function() {
+            location.reload();
+        });
+
+        function createConfetti() {
+            const confetti = document.createElement('div');
+            confetti.classList.add('confetti');
+            document.body.appendChild(confetti);
+
+            const startX = Math.random() * window.innerWidth;
+            const startY = Math.random() * window.innerHeight / 2;
+
+            confetti.style.left = `${startX}px`;
+            confetti.style.top = `${startY}px`;
+
+            const size = Math.random() * 5 + 5; // Random size between 5px and 10px
+            confetti.style.width = `${size}px`;
+            confetti.style.height = `${size}px`;
+
+            const animationDuration = Math.random() * 3 + 2; // Random animation duration between 2s and 5s
+
+            confetti.style.animationDuration = `${animationDuration}s`;
+
+            // Remove confetti after animation
+            setTimeout(() => {
+                confetti.remove();
+            }, animationDuration * 1000);
+        }
+    </script>
+
+</body>
+</html>
